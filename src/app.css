@@ -1,0 +1,18 @@
+/* App css stylesheet */
+
+body {
+  padding-top: 20px;
+}
+
+table{
+	display: table;
+	width: 100%; 
+	background: #fff;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+thead{
+	background: #8b8b8b;
+	color: #fff;
+}
