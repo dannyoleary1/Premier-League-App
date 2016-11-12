@@ -6,9 +6,10 @@
     "react-scripts": "0.2.1"
   },
   "dependencies": {
-	"bootstrap": "^3.3.6",
+    "bootstrap": "^3.3.6",
     "react": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "react-dom": "^15.2.1",
+    "reactable": "^0.14.0"
   },
   "scripts": {
     "start": "react-scripts start",

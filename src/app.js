@@ -1,29 +1,40 @@
  import React from 'react'; 
  import './app.css' ;
-
+ import Reactable from 'reactable'; 
  
-	var HomePage = React.createClass({
+ var Table = Reactable.Table,  
+    Thead = Reactable.Thead,
+    Th = Reactable.Th; //used for table sorting. Will be using this rather than the default table for easy sorting and searching using reactable
+	
+var bplTeams = [  
+  {TEAM: "Arsenal", GP: 11, W: 5, PTS: 15},
+  {TEAM: "Liverpool", GP: 11, W: 11, PTS: 33},
+  {TEAM: "Manchester City", GP: 9, W: 6, PTS: 18},
+  {TEAM: "Manchester United", GP: 10, W: 1, PTS: 3},
+  {TEAM: "Everton", GP: 7, W: 4, PTS: 12},
+  {TEAM: "Chelsea", GP: 10, W: 7, PTS: 21},
+  {TEAM: "Burnley", GP: 12, W: 6, PTS: 18},
+  {TEAM: "West Ham United", GP: 8, W: 8, PTS: 24},
+  {TEAM: "Swansea", GP: 12, W: 6, PTS: 18},
+  {TEAM: "Watford", GP: 5, W: 1, PTS: 3}
+]; //probably a temporary data set
+ 
+	var HomePage = React.createClass({ //This code is responsible for being able to display a up-to-date table for the English Premier League
 		render: function(){
 			return <div className="Premier League Clubs">
 						<h1>Premier League Table</h1>
-							<table>
-								<thead>
-									<tr>
-										<td>Team</td>
-										<td>GP</td>
-										<td>W</td>
-										<td>D</td>
-										<td>L</td>
-										<td>GF</td>
-										<td>GA</td>
-										<td>GD</td>
-										<td>PTS</td>
-									</tr>
-								</thead>
-								<tbody>
-										<td>Name</td>
-								</tbody>
-							</table>
+							<Table className="table" 
+							filterable={['TEAM', 'GP', 'W', 'PTS']} //the tags it can be filtered by
+							noDataText="No matching records found" //if no results are found display this when searching
+							sortable={true}
+							data={bplTeams}>
+							<Thead>
+								<Th column="TEAM">TEAM</Th>
+								<Th column="GP">GP</Th>
+								<Th column="W">W</Th>
+								<Th column="PTS">PTS</Th>
+								</Thead>
+							</Table>
 					</div> 
 		}
 	});
