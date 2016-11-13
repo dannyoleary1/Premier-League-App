@@ -39,10 +39,18 @@ var MasterPage = React.createClass({
     return idToken;
   },
   render: function() {
+	
     if (this.state.idToken) {
-      return (<LoggedIn lock={this.lock} idToken={this.state.idToken} />);
+      return (	<div>
+	  <Links />
+	  <LoggedIn lock={this.lock} idToken={this.state.idToken} />
+	  </div>
+	  );
     } else {
-      return (<Home lock={this.lock} />);
+      return (<div>
+	  <Links />
+	  <Home lock={this.lock} />
+	  </div>);
     }
   }
 });
@@ -68,29 +76,32 @@ var LoggedIn = React.createClass({
 
   render: function() {
     if (this.state.profile) {
-      return (
+      return ( <div>
         <h2>Welcome {this.state.profile.nickname}</h2>
+		</div>
       );
     } else {
-      return (
+      return ( <div>
         <div className="logout">Please logout</div>
+		</div>
       );
     }
   }
 });
 
 var Home = React.createClass({
-	// ...
 	showLock: function() {
 		// Show the Auth0Lock widget
 		this.props.lock.show();
 	},
 
 	render: function() {
-		return (
-				<div className="login-box">
-				<a onClick={this.showLock}>Sign In</a>
-				</div>);
+		
+		return ( <div>
+					<div className="login-box">
+					<a onClick={this.showLock}>Sign In</a>
+					</div>
+				</div>)
 	}
 });
 
@@ -117,6 +128,7 @@ class HomePage extends React.Component{ //This code is responsible for being abl
 	render(){
 		if (localStorage.getItem('id_token')){
 		return <div className="Premier League Clubs">
+		<Links />
 		<h1>Premier League Table</h1>
 		<Table className="table" 
 			filterable={['TEAM', 'GP', 'W', 'PTS']} //the tags it can be filtered by
@@ -133,7 +145,10 @@ class HomePage extends React.Component{ //This code is responsible for being abl
 		</div>
 	}
 	else{
-		return <Links />
+		return <div>
+				<Links />
+				<h1> Log in to see the table </h1>
+				</div>
 	}
 	}
 };
@@ -142,25 +157,19 @@ export default HomePage;
 
 class Teams extends React.Component{
 	render(){
-		return 'Skeleton Class'
+		return <Links />
 	}
 };
 
 export default Teams;
 
-class PremierLeagueTable extends React.Component{
-	render(){
-		return 'Skeleton Class'
-	}
-};
-
-export default PremierLeagueTable;
-
 class Logout extends React.Component{
 		render(){
 			localStorage.removeItem('id_token');
-			return <h1>You have succesfully logged out</h1>
-			
+			return <div>
+					<Links />
+					<h1>You have succesfully logged out</h1>
+				</div>
 		}
 }
 
@@ -169,13 +178,12 @@ class Links extends React.Component{
         return(
             <div>
                <ul className="nav navbar-nav">
-                 <li><Link to="/home">Home</Link></li>
+                 <li><Link to="/">Home</Link></li>
                  <li><Link to="/teams">Teams</Link></li>
                  <li><Link to="/table">Table</Link></li>
 				 <li><Link to="/logout">Logout</Link></li>
 			   </ul>
-            </div>,
-			<h1>You are not logged in!</h1>
+            </div>
         );
     }
 }
@@ -187,9 +195,9 @@ ReactDOM.render((
 		<Route path="/" component={MasterPage}>
 		<Route path="index" component={MasterPage} />
 		</Route>
-		<Route path="home" component={HomePage} />
+		<Route path="home" component={MasterPage} />
 		<Route path="teams" component={Teams}/>
-		<Route path="table" component={PremierLeagueTable}/>
+		<Route path="table" component={HomePage}/>
 		<Route path="logout" component={Logout} />
 		</Router>	
 ), document.getElementById('root'))
