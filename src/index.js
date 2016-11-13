@@ -132,6 +132,9 @@ class HomePage extends React.Component{ //This code is responsible for being abl
 		</Table>
 		</div>
 	}
+	else{
+		return <Links />
+	}
 	}
 };
 
@@ -161,6 +164,23 @@ class Logout extends React.Component{
 		}
 }
 
+class Links extends React.Component{
+	 render(){
+        return(
+            <div>
+               <ul className="nav navbar-nav">
+                 <li><Link to="/home">Home</Link></li>
+                 <li><Link to="/teams">Teams</Link></li>
+                 <li><Link to="/table">Table</Link></li>
+				 <li><Link to="/logout">Logout</Link></li>
+			   </ul>
+            </div>,
+			<h1>You are not logged in!</h1>
+        );
+    }
+}
+
+export default Links;
 
 ReactDOM.render((
 		<Router history={browserHistory}>
@@ -170,9 +190,7 @@ ReactDOM.render((
 		<Route path="home" component={HomePage} />
 		<Route path="teams" component={Teams}/>
 		<Route path="table" component={PremierLeagueTable}/>
-		<Route path="login" component={Teams}/>
 		<Route path="logout" component={Logout} />
-		</Router>
-
+		</Router>	
 ), document.getElementById('root'))
 
