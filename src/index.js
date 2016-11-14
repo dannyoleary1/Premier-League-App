@@ -4,6 +4,7 @@ import Reactable from 'reactable';
 import ReactDom from 'react-dom';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import {lock} from 'auth0-lock';
+import AllTeams from './data.js';
 
 var Table = Reactable.Table,  
 Thead = Reactable.Thead,
@@ -11,6 +12,7 @@ Th = Reactable.Th; //used for table sorting. Will be using this rather than the 
 
 var bplTeams=[
 	];
+	
 
 var MasterPage = React.createClass({
 	componentWillMount: function() {
@@ -190,6 +192,24 @@ class Links extends React.Component{
 
 export default Links;
 
+class TeamInformation extends React.Component{
+	render(){	
+	var teams = this.props.route.data; //All the team data
+	var name = this.props.params.name; //The name entered
+	var currentTeam = teams.filter(currentTeam =>{
+		if (currentTeam.name == name){
+			return currentTeam;
+		}
+	});
+	
+	return <div className="Current Team">
+			<h1>{currentTeam[0].name}</h1>
+			</div>
+	}
+};
+
+export default TeamInformation;
+
 ReactDOM.render((
 		<Router history={browserHistory}>
 		<Route path="/" component={MasterPage}>
@@ -197,8 +217,10 @@ ReactDOM.render((
 		</Route>
 		<Route path="home" component={MasterPage} />
 		<Route path="teams" component={Teams}/>
+		<Route path="teams/:name" component={TeamInformation} data={AllTeams}/>
 		<Route path="table" component={HomePage}/>
 		<Route path="logout" component={Logout} />
+		<Route path="test" component={TeamInformation} />
 		</Router>	
 ), document.getElementById('root'))
 
