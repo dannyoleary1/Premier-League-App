@@ -101,7 +101,9 @@ var Home = React.createClass({
 		
 		return ( <div>
 					<div className="login-box">
-					<a onClick={this.showLock}>Sign In</a>
+					<h1>Welcome to Danny's Premier League App</h1>
+					<p>Click on the button below to sign in or sign up to unlock features</p>
+					<button onClick={this.showLock}>Sign In</button>
 					</div>
 				</div>)
 	}
@@ -161,7 +163,90 @@ class Teams extends React.Component{
 	render(){ 
 	return <div>
 					<Links />
-					<h1>This is a test</h1>
+					<div id="Teams">
+						<ul>
+							<li>
+								<img src={require("./Images/Arsenal.jpg")} />
+								<h3>Arsenal</h3>
+							</li>
+							<li>
+								<img src={require("./Images/Bournemouth.png")} />
+								<h3>Bournemouth</h3>
+							</li>
+							<li>
+								<img src={require("./Images/Burnley.png")} />
+								<h3>Burnley</h3>
+							</li>
+							<li>
+								<img src={require("./Images/Chelsea.png")} />
+								<h3>Chelsea</h3>
+							</li>
+							<li>
+								<img src={require("./Images/CrystalPalace.jpg")} />
+								<h3>Crystal Palace</h3>
+							</li>
+							<li>
+								<img src={require("./Images/Everton.jpg")} />
+								<h3>Everton</h3>
+							</li>
+							<li>
+								<img src={require("./Images/Hull.png")} />
+								<h3>Hull</h3>
+							</li>
+							<li>
+								<img src={require("./Images/Leicester.jpg")} />
+								<h3>Leicester</h3>
+							</li>
+							<li>
+								<img src={require("./Images/Liverpool.png")} />
+								<h3>Liverpool</h3>	
+							</li>
+							<li>
+								<img src={require("./Images/ManCity.png")} />
+								<h3>Man City</h3>
+							</li>
+							<li>
+								<img src={require("./Images/ManUnited.png")} />
+								<h3>Man United</h3>
+							</li>
+							<li>
+								<img src={require("./Images/Middlesbrough.jpg")} />
+								<h3>Middlesbrough</h3>
+							</li>
+							<li>
+								<img src={require("./Images/Southampton.png")} />
+								<h3>Southampton</h3>
+							</li>
+							<li>
+								<img src={require("./Images/StokeCity.jpg")} />
+								<h3>Stoke City</h3>
+							</li>
+							<li>
+								<img src={require("./Images/Sunderland.jpg")} />
+								<h3>Sunderland</h3>
+							</li>
+							<li>
+								<img src={require("./Images/SwanseaCity.png")} />
+								<h3>Swansea City</h3>
+							</li>
+							<li>
+								<img src={require("./Images/Tottenham.jpg")} />
+								<h3>Tottenham</h3>
+							</li>
+							<li>
+								<img src={require("./Images/Watford.png")} />
+								<h3>Watford</h3>
+							</li>
+							<li>
+								<img src={require("./Images/WestBrom.png")} />
+								<h3>West Brom</h3>
+							</li>
+							<li>
+								<img src={require("./Images/WestHam.png")} />
+								<h3>West Ham</h3>
+							</li>
+						</ul>
+					</div>
 			 </div>
 	}
 };
@@ -181,8 +266,8 @@ class Logout extends React.Component{
 class Links extends React.Component{
 	 render(){
         return(
-            <div>
-               <ul className="nav navbar-nav">
+            <div id="Links">
+               <ul>
                  <li><Link to="/" activeClassName="active">Home</Link></li>
                  <li><Link to="/teams" activeClassName="active">Teams</Link></li>
                  <li><Link to="/table" activeClassName="active">Table</Link></li>
