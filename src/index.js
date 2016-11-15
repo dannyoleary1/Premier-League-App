@@ -158,8 +158,11 @@ class HomePage extends React.Component{ //This code is responsible for being abl
 export default HomePage;
 
 class Teams extends React.Component{
-	render(){
-		return <Links />
+	render(){ 
+	return <div>
+					<Links />
+					<h1>This is a test</h1>
+			 </div>
 	}
 };
 
@@ -180,10 +183,10 @@ class Links extends React.Component{
         return(
             <div>
                <ul className="nav navbar-nav">
-                 <li><Link to="/">Home</Link></li>
-                 <li><Link to="/teams">Teams</Link></li>
-                 <li><Link to="/table">Table</Link></li>
-				 <li><Link to="/logout">Logout</Link></li>
+                 <li><Link to="/" activeClassName="active">Home</Link></li>
+                 <li><Link to="/teams" activeClassName="active">Teams</Link></li>
+                 <li><Link to="/table" activeClassName="active">Table</Link></li>
+				 <li><Link to="/logout" activeClassName="active">Logout</Link></li>
 			   </ul>
             </div>
         );
