@@ -13,6 +13,8 @@ Th = Reactable.Th; //used for table sorting. Will be using this rather than the 
 var bplTeams=[
 	];
 	
+var loopControl =0; //To stop re-rendering
+	
 
 var MasterPage = React.createClass({
 	componentWillMount: function() {
@@ -109,8 +111,9 @@ var Home = React.createClass({
 	}
 });
 
-class HomePage extends React.Component{ //This code is responsible for being able to display a up-to-date table for the English Premier League
+class HomePage extends React.Component{	//This code is responsible for being able to display a up-to-date table for the English Premier League 
 	componentDidMount() {
+		if (loopControl==0){
 		$.ajax({
 			url: 'http://soccer.sportsopendata.net/v1/leagues/premier-league/seasons/16-17/standings',
 			dataType: 'json',
@@ -125,8 +128,10 @@ class HomePage extends React.Component{ //This code is responsible for being abl
 					"PTS": response.data.standings[i].overall.points
 				})
 			}
+			loopControl++;
 			this.setState({ bplTeams: bplTeams })
 		}); 
+	}
 	}
 
 	render(){
@@ -136,9 +141,9 @@ class HomePage extends React.Component{ //This code is responsible for being abl
 		<h1>Premier League Table</h1>
 		<Table className="table" 
 			filterable={['TEAM', 'GP', 'W', 'PTS']} //the tags it can be filtered by
-		noDataText="No matching records found" //if no results are found display this when searching
+			noDataText="No matching records found" //if no results are found display this when searching
 			sortable={true}
-		data={bplTeams}>
+			data={bplTeams}>
 		<Thead>
 		<Th column="TEAM">TEAM</Th>
 		<Th column="GP">GP</Th>
@@ -167,83 +172,83 @@ class Teams extends React.Component{
 						<ul>
 							<li>
 								<img src={require("./Images/Arsenal.jpg")} />
-								<h3>Arsenal</h3>
+								<h3><a href="http://localhost:3000/teams/Arsenal">Arsenal</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/Bournemouth.png")} />
-								<h3>Bournemouth</h3>
+								<h3><a href="http://localhost:3000/teams/Bournemouth">Bournemouth</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/Burnley.png")} />
-								<h3>Burnley</h3>
+								<h3><a href="http://localhost:3000/teams/Burnley">Burnley</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/Chelsea.png")} />
-								<h3>Chelsea</h3>
+								<h3><a href="http://localhost:3000/teams/Chelsea">Chelsea</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/CrystalPalace.jpg")} />
-								<h3>Crystal Palace</h3>
+								<h3><a href="http://localhost:3000/teams/Crystal Palace">Crystal Palace</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/Everton.jpg")} />
-								<h3>Everton</h3>
+								<h3><a href="http://localhost:3000/teams/Everton">Everton</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/Hull.png")} />
-								<h3>Hull</h3>
+								<h3><a href="http://localhost:3000/teams/Hull">Hull</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/Leicester.jpg")} />
-								<h3>Leicester</h3>
+								<h3><a href="http://localhost:3000/teams/Leicester">Leicester</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/Liverpool.png")} />
-								<h3>Liverpool</h3>	
+								<h3><a href="http://localhost:3000/teams/Liverpool">Liverpool</a></h3>	
 							</li>
 							<li>
 								<img src={require("./Images/ManCity.png")} />
-								<h3>Man City</h3>
+								<h3><a href="http://localhost:3000/teams/Man City">Man City</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/ManUnited.png")} />
-								<h3>Man United</h3>
+								<h3><a href="http://localhost:3000/teams/Man United">Man United</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/Middlesbrough.jpg")} />
-								<h3>Middlesbrough</h3>
+								<h3><a href="http://localhost:3000/teams/Middlesbrough">Middlesbrough</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/Southampton.png")} />
-								<h3>Southampton</h3>
+								<h3><a href="http://localhost:3000/teams/Southampton">Southampton</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/StokeCity.jpg")} />
-								<h3>Stoke City</h3>
+								<h3><a href="http://localhost:3000/teams/Stoke City">Stoke City</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/Sunderland.jpg")} />
-								<h3>Sunderland</h3>
+								<h3><a href="http://localhost:3000/teams/Sunderland">Sunderland</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/SwanseaCity.png")} />
-								<h3>Swansea City</h3>
+								<h3><a href="http://localhost:3000/teams/Swansea City">Swansea City</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/Tottenham.jpg")} />
-								<h3>Tottenham</h3>
+								<h3><a href="http://localhost:3000/teams/Tottenham">Tottenham</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/Watford.png")} />
-								<h3>Watford</h3>
+								<h3><a href="http://localhost:3000/teams/Watford">Watford</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/WestBrom.png")} />
-								<h3>West Brom</h3>
+								<h3><a href="http://localhost:3000/teams/West Brom">West Brom</a></h3>
 							</li>
 							<li>
 								<img src={require("./Images/WestHam.png")} />
-								<h3>West Ham</h3>
+								<h3><a href="http://localhost:3000/teams/West Ham">West Ham</a></h3>
 							</li>
 						</ul>
 					</div>
@@ -269,6 +274,7 @@ class Links extends React.Component{
             <div id="Links">
                <ul>
                  <li><Link to="/" activeClassName="active">Home</Link></li>
+				 <li><Link to="/about" activeClassName="active">About</Link></li>
                  <li><Link to="/teams" activeClassName="active">Teams</Link></li>
                  <li><Link to="/table" activeClassName="active">Table</Link></li>
 				 <li><Link to="/logout" activeClassName="active">Logout</Link></li>
@@ -291,7 +297,9 @@ class TeamInformation extends React.Component{
 	});
 	
 	return <div className="Current Team">
+			<Links />
 			<h1>{currentTeam[0].name}</h1>
+			<img src={require(currentTeam[0].logo)} />
 			</div>
 	}
 };
@@ -304,6 +312,7 @@ ReactDOM.render((
 		<Route path="index" component={MasterPage} />
 		</Route>
 		<Route path="home" component={MasterPage} />
+		<Route path="about" component={MasterPage} />
 		<Route path="teams" component={Teams}/>
 		<Route path="teams/:name" component={TeamInformation} data={AllTeams}/>
 		<Route path="table" component={HomePage}/>
