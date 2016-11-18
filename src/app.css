@@ -4,6 +4,11 @@ body {
   padding-top: 20px;
 }
 
+*{
+	margin: 0;
+	padding: 0;
+}
+
 table{
  	display: table;
  	width: 100%; 
@@ -65,12 +70,19 @@ button{
     left: 100px;
 }
 
+#Teams {
+	width: 100%;
+	padding: 30px 0;
+}
+#Teams {
+	width: 1200px;
+	margin: 0 auto;
+}
 
 #Teams ul{
 	list-style: none;
 	font-size: 0px;
 	margin-left: -2.5%; /* should match li left margin */
-	
 }
 
 #Teams li{
@@ -86,10 +98,10 @@ button{
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	width: 30.83%;; 
+	width: 30.83%;
 }
 
-#Teams img{
+#Teams li img{
 	position: relative;
     float: left;
     width:  100px;
@@ -100,8 +112,17 @@ button{
 	max-width: 100%;
 	height: auto;
 	margin: 0 0 10px;
+	max-width: 100%;
+	height: auto;
+	margin: 0 0 10px;
 }
 
-#Teams h3{
+#Teams li h3{
 	margin: 0 0 5px;
+}
+
+#Teams p{
+	font-size: .9em;
+	line-height: 1.5em;
+	color: #999;
 }

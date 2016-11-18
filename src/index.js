@@ -166,92 +166,28 @@ export default HomePage;
 
 class Teams extends React.Component{
 	render(){ 
-	const teams = this.props.route.data;
+	var teams = this.props.route.data;
+	var link="/teams/";
+	var teamName="";
+	const namesList = teams.map(team =>{
+		teamName=link+team.name;
+		return ( <li key={team.name} className="Teamsss"> 
+				<img src={require(team.logo)}/>
+				<h3><Link to={teamName}>{team.name}</Link></h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>)
+		
+	})
+	console.log(namesList);
 	return <div>
+					
 					<Links />		
-					<div id="Teams">					
+					<div id="Teams">	
 						<ul>
-							<li>
-								<img src={require("./Images/Arsenal.jpg")} />
-								<h3><Link to="/teams/Arsenal">Arsenal</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/Bournemouth.png")} />
-								<h3><Link to="/teams/Bournemouth">Bournemouth</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/Burnley.png")} />
-								<h3><Link to="/teams/Burnley">Burnley</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/Chelsea.png")} />
-								<h3><Link to="/teams/Chelsea">Chelsea</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/CrystalPalace.jpg")} />
-								<h3><Link to="/teams/Crystal Palace">Crystal Palace</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/Everton.jpg")} />
-								<h3><Link to="/teams/Everton">Everton</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/Hull.png")} />
-								<h3><Link to="/teams/Hull">Hull</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/Leicester.jpg")} />
-								<h3><Link to="/teams/Leicester">Leicester</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/Liverpool.png")} />
-								<h3><Link to="/teams/Liverpool">Liverpool</Link></h3>	
-							</li>
-							<li>
-								<img src={require("./Images/ManCity.png")} />
-								<h3><Link to="/teams/Man City">Man City</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/ManUnited.png")} />
-								<h3><Link to="/teams/Man United">Man United</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/Middlesbrough.jpg")} />
-								<h3><Link to="/teams/Middlesbrough">Middlesbrough</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/Southampton.png")} />
-								<h3><Link to="/teams/Southampton">Southampton</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/StokeCity.jpg")} />
-								<h3><Link to="/teams/Stoke City">Stoke City</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/Sunderland.jpg")} />
-								<h3><Link to="/teams/Sunderland">Sunderland</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/SwanseaCity.png")} />
-								<h3><Link to="/teams/Swansea City">Swansea City</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/Tottenham.jpg")} />
-								<h3><Link to="/teams/Tottenham">Tottenham</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/Watford.png")} />
-								<h3><Link to="/teams/Watford">Watford</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/WestBrom.png")} />
-								<h3><Link to="/teams/West Brom">West Brom</Link></h3>
-							</li>
-							<li>
-								<img src={require("./Images/WestHam.png")} />
-								<h3><Link to="/teams/West Ham">West Ham</Link></h3>
-							</li>					
+							{namesList}					
 						</ul>
+						
 						</div>
 					}
 			 </div>
