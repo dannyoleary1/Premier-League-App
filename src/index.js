@@ -179,7 +179,6 @@ class Teams extends React.Component{
 				</li>)
 		
 	})
-	console.log(namesList);
 	return <div>
 					
 					<Links />		
@@ -238,11 +237,38 @@ class TeamInformation extends React.Component{
 			<Links />
 			<h1>{currentTeam[0].name}</h1>
 			<img src={require(currentTeam[0].logo)} />
+			<ul>
+				<li>{currentTeam[0].Nickname}</li>
+				<li>{currentTeam[0].Founded}</li>
+				<li>{currentTeam[0].Stadium}</li>
+				<li>{currentTeam[0].Capacity}</li>
+				<li>{currentTeam[0].Manager}</li>
+				<iframe src={currentTeam[0].latestNews} width="300" height="250" scrolling="no"></iframe>
+			</ul>
 			</div>
 	}
 };
 
 export default TeamInformation;
+
+class AboutPage extends React.Component{
+	render(){
+	return <div className="About">
+				<Links />
+				<h1>About</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				<h2>Lorem Ipsum</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				<h3>Lorem Ipsum</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+			</div>
+	}
+};
+
+export default AboutPage;
 
 ReactDOM.render((
 		<Router history={browserHistory}>
@@ -250,7 +276,7 @@ ReactDOM.render((
 		<Route path="index" component={MasterPage} />
 		</Route>
 		<Route path="home" component={MasterPage} />
-		<Route path="about" component={MasterPage} />
+		<Route path="about" component={AboutPage} />
 		<Route path="teams" component={Teams} data={AllTeams}/>
 		<Route path="teams/:name" component={TeamInformation} data={AllTeams}/>
 		<Route path="table" component={HomePage}/>
