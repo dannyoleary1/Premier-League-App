@@ -174,8 +174,7 @@ class Teams extends React.Component{
 		return ( <li key={team.name} className="Teamsss"> 
 				<img src={require(team.logo)}/>
 				<h3><Link to={teamName}>{team.name}</Link></h3>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				<p>{team.Description}</p>
 				</li>)
 		
 	})
@@ -244,6 +243,7 @@ class TeamInformation extends React.Component{
 				<li>{currentTeam[0].Capacity}</li>
 				<li>{currentTeam[0].Manager}</li>
 				<iframe src={currentTeam[0].latestNews} width="300" height="250" scrolling="no"></iframe>
+				<iframe src={currentTeam[0].stats} scrolling="no" marginwidth="0" marginheight="0" frameborder="0" width="590px" height="540px"></iframe>
 			</ul>
 			</div>
 	}
