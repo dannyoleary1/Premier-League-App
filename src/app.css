@@ -127,3 +127,56 @@ button{
 	line-height: 1.5em;
 	color: #999;
 }
+
+#About {
+	width: 700px;
+	
+}
+
+#About p {
+	display: inline-block;
+	font-size: .9em;
+	line-height: 1.5em;
+	color: #999;
+}
+
+#stats{
+	float: right;
+	position: relative; 
+	bottom: 100px;
+	right: 15px;
+}
+
+#TeamInfo{
+	position: relative;
+	border: 1px solid #ddd;
+	width: 18.83%;
+	top:22.5px;
+	left: 400px;
+	color: #999;
+}
+
+#TeamInfo li{
+		list-style-type: none;
+	
+}
+#TeamInfo b, h2{
+	color: black;
+}
+
+#Header img{
+	max-width: 125px !important;
+	height: auto !important;
+}
+
+#Header h1{
+	position: relative;
+	bottom: 225px;
+	left: 20px;
+}
+
+#Header iframe{
+	position: relative;
+	bottom: 175px;
+	left: 340px;
+}
