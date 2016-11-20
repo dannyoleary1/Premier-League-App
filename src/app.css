@@ -20,6 +20,7 @@ table{
 thead{
  	background: #4CAF50;
  	color: #fff;
+	text-align: left;
 }
 
 tr:nth-child(odd){background-color: #f2f2f2;}

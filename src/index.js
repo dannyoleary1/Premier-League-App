@@ -125,6 +125,11 @@ class TablePage extends React.Component{	//This code is responsible for being ab
 						"TEAM": response.data.standings[i].team,
 						"GP": response.data.standings[i].overall.matches_played,
 						"W": response.data.standings[i].overall.wins, 
+						"D": response.data.standings[i].overall.draws,
+						"L": response.data.standings[i].overall.losts,
+						"GF": response.data.standings[i].overall.scores,
+						"GA": response.data.standings[i].overall.conceded,
+						"GD": response.data.standings[i].overall.goal_difference,
 						"PTS": response.data.standings[i].overall.points
 					})
 				}
@@ -140,7 +145,7 @@ class TablePage extends React.Component{	//This code is responsible for being ab
 			<Links />
 			<h1>Premier League Table</h1>
 			<Table className="table" 
-				filterable={['TEAM', 'GP', 'W', 'PTS']} //the tags it can be filtered by
+				filterable={['TEAM', 'GP', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'PTS']} //the tags it can be filtered by
 			noDataText="No matching records found" //if no results are found display this when searching
 				sortable={true}
 			data={bplTeams}>
@@ -148,6 +153,11 @@ class TablePage extends React.Component{	//This code is responsible for being ab
 			<Th column="TEAM">TEAM</Th>
 			<Th column="GP">GP</Th>
 			<Th column="W">W</Th>
+			<Th column="D">D</Th>
+			<Th column="L">L</Th>
+			<Th column="GF">GF</Th>
+			<Th column="GA">GA</Th>
+			<Th column="GD">GD</Th>
 			<Th column="PTS">PTS</Th>
 			</Thead>
 			</Table>
