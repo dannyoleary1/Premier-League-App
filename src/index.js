@@ -177,11 +177,11 @@ export default TablePage;
 //This is responsible for displaying all the teams on the teams page
 class Teams extends React.Component{
 	render(){ 
-		var teams = this.props.route.data;
-		var link="/teams/";
-		var teamName="";
+		var teams = this.props.route.data; //takes in data through the routes
+		var link="/teams/"; //The default start of a link
+		var teamName=""; 
 		const namesList = teams.map(team =>{
-		teamName=link+team.name;
+		teamName=link+team.name; //adds the link and the current team name
 		return (	<li key={team.name} className="Teamsss"> 
 						<img src={require(team.logo)}/>
 						<h3><Link to={teamName}>{team.name}</Link></h3>
