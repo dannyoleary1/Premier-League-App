@@ -1,24 +1,104 @@
 {
-	"AllTeams": [
-			{"name": "Arsenal", "logo": "./Images/Arsenal.jpg"},
-			{"name": "Bournemouth", "logo": "./Images/Bournemouth.png"},
-			{"name": "Burnley", "logo": "./Images/Burnley.jpg"},
-			{"name": "Chelsea", "logo": "./Images/Chelsea.png"},
-			{"name": "Crystal Palace", "logo": "./Images/CrystalPalace.jpg"},
-			{"name": "Everton", "logo": "./Images/Everton.jpg"},
-			{"name": "Hull City", "logo": "./Images/Hull.png"},
-			{"name": "Leicester City", "logo": "./Images/Leicester.jpg"},
-			{"name": "Liverpool", "logo": "./Images/Liverpool.png"},
-			{"name": "Man City", "logo": "./Images/ManCity.png"},
-			{"name": "Man United", "logo": "./Images/ManUnited.png"},
-			{"name": "Middlesbrough", "logo": "./Images/Middlesbrough.jpg"},
-			{"name": "Southampton", "logo": "./Images/Southampton.png" },
-			{"name": "Stoke City", "logo": "./Images/StokeCity.jpg"},
-			{"name": "Sunderland", "logo": "./Images/Sunderland.jpg"},
-			{"name": "Swansea City", "logo": "./Images/SwanseaCity.png"},
-			{"name": "Tottenham", "logo": "./Images/Tottenham.jpg"},
-			{"name": "Watford", "logo": "./Images/Watford.png"},
-			{"name": "West Brom", "logo": "./Images/WestBrom.jpg"},
-			{"name": "West Ham", "logo": "./Images/WestHam.jpg"}			
-]
+  "AllTeams": [
+    {
+      "id": 0,
+      "name": "Arsenal",
+      "logo": "./Images/Arsenal.jpg"
+    },
+    {
+      "id": 1,
+      "name": "Bournemouth",
+      "logo": "./Images/Bournemouth.png"
+    },
+    {
+      "id": 2,
+      "name": "Burnley",
+      "logo": "./Images/Burnley.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Chelsea",
+      "logo": "./Images/Chelsea.png"
+    },
+    {
+      "id": 4,
+      "name": "Crystal Palace",
+      "logo": "./Images/CrystalPalace.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Everton",
+      "logo": "./Images/Everton.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Hull City",
+      "logo": "./Images/Hull.png"
+    },
+    {
+      "id": 7,
+      "name": "Leicester City",
+      "logo": "./Images/Leicester.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Liverpool",
+      "logo": "./Images/Liverpool.png"
+    },
+    {
+      "id": 9,
+      "name": "Man City",
+      "logo": "./Images/ManCity.png"
+    },
+    {
+      "id": 10,
+      "name": "Man United",
+      "logo": "./Images/ManUnited.png"
+    },
+    {
+      "id": 11,
+      "name": "Middlesbrough",
+      "logo": "./Images/Middlesbrough.jpg"
+    },
+    {
+      "id": 12,
+      "name": "Southampton",
+      "logo": "./Images/Southampton.png"
+    },
+    {
+      "id": 13,
+      "name": "Stoke City",
+      "logo": "./Images/StokeCity.jpg"
+    },
+    {
+      "id": 14,
+      "name": "Sunderland",
+      "logo": "./Images/Sunderland.jpg"
+    },
+    {
+      "id": 15,
+      "name": "Swansea City",
+      "logo": "./Images/SwanseaCity.png"
+    },
+    {
+      "id": 16,
+      "name": "Tottenham",
+      "logo": "./Images/Tottenham.jpg"
+    },
+    {
+      "id": 17,
+      "name": "Watford",
+      "logo": "./Images/Watford.png"
+    },
+    {
+      "id": 18,
+      "name": "West Brom",
+      "logo": "./Images/WestBrom.jpg"
+    },
+    {
+      "id": 19,
+      "name": "West Ham",
+      "logo": "./Images/WestHam.jpg"
+    }
+  ]
 }
