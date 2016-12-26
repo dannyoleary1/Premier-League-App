@@ -12,7 +12,7 @@ Th = Reactable.Th; //used for table sorting. Will be using this rather than the 
 
 var bplTeams=[
 	];
-	
+	var data=[];	
 var json=[];
 
 var loopControl =0; //To stop re-rendering
@@ -96,15 +96,26 @@ var LoggedIn = React.createClass({
 		this.setState({profile: profile});
 		}.bind(this));
 	},
-
-	render: function() {
+		getInitialState() {
+				return { showResults: false };
+			},
+		onClick() {
+			this.setState({ showResults: true });
+		},
+	render: function() {		
+		
 		
 		if (this.state.profile) {
 			if(this.state.profile.nickname=="dannyoleary1"){
 				localStorage.setItem("nickname", "dannyoleary1");
-				return (<div>
+				return ( <div>
 							<h2> Welcome Admin </h2>
-						</div>)
+							<br/>
+							<div>
+								<input type="submit" value="Show JSON" onClick={this.onClick} />
+								{ this.state.showResults ? <Get /> : null }
+							</div>
+						</div> )
 			}
 			else return (	<div>
 							<h2>Welcome {this.state.profile.nickname}</h2>
@@ -120,6 +131,40 @@ var LoggedIn = React.createClass({
 	}
 	
 });
+
+class Get extends React.Component{
+		componentDidMount() {
+				$.ajax({ //This is jquery to make the api call to the specific url
+				url: 'http://localhost:4000/api/teams',
+				dataType: 'json',
+				type: 'GET',
+			}).done((response) =>{
+				for(var i=0; i<response.length; i++){
+				  data.push({
+					  "NAME": response[i].name
+					})
+			}
+			this.setState({data: data})
+		});
+		}
+		render() 
+		{
+			var namesList = data.map(team =>{
+				return ( <li key={team.NAME} className="data"> 
+							<h1>Team Name: {team.NAME}</h1>
+						</li> )
+			})
+			return <div>
+				<div id="data">
+						<ul>
+						{namesList}
+						</ul>
+					</div>	
+				</div>
+		}
+};
+
+export default Get;
 
 //Displays the homepage itself
 var Home = React.createClass({
