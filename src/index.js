@@ -198,7 +198,6 @@ class Teams extends React.Component{
 		if (localStorage.getItem('id_token')){
 			json = JSON.parse(localStorage.getItem('teams'));
 		}
-		var teams = this.props.route.data; //takes in data through the routes
 		var teams = json;
 		var link="/teams/"; //The default start of a link
 		var teamName=""; 
@@ -266,7 +265,10 @@ export default Links;
 //This displays the teams information
 class TeamInformation extends React.Component{
 	render(){	
-		var teams = this.props.route.data; //All the team data
+		if (localStorage.getItem('id_token')){
+			json = JSON.parse(localStorage.getItem('teams'));
+		}
+		var teams = json; //All the team data
 		var name = this.props.params.name; //The name entered
 		var currentTeam = teams.filter(currentTeam =>{
 		if (currentTeam.name == name){
@@ -355,7 +357,7 @@ ReactDOM.render((
 			</Route>
 			<Route path="home" component={MasterPage} />
 			<Route path="about" component={AboutPage} />
-			<Route path="teams" component={Teams} data={json}/>
+			<Route path="teams" component={Teams}/>
 			<Route path="teams/:name" component={TeamInformation} data={json}/>
 			<Route path="table" component={TablePage}/>
 			<Route path="logout" component={Logout} />
