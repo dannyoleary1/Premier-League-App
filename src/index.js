@@ -4,7 +4,6 @@ import Reactable from 'reactable';
 import ReactDom from 'react-dom';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import {lock} from 'auth0-lock';
-import AllTeams from './data.js';
 import request from 'superagent' ; 
 
 var Table = Reactable.Table,  
@@ -13,6 +12,8 @@ Th = Reactable.Th; //used for table sorting. Will be using this rather than the 
 
 var bplTeams=[
 	];
+	
+var json=[];
 
 var loopControl =0; //To stop re-rendering
 
@@ -24,9 +25,8 @@ var MasterPage = React.createClass({
        request.get('http://127.0.0.1:4000/api/teams')
           .end(function(error, res){
             if (res) {
-              var json = JSON.parse(res.text);
-              localStorage.clear();
-              localStorage.setItem('contacts', JSON.stringify(json)) ;
+              json = JSON.parse(res.text);
+              localStorage.setItem('teams', JSON.stringify(json)) ;
               this.setState( {}) ; 
             } else {
               console.log(error );
@@ -195,10 +195,14 @@ export default TablePage;
 //This is responsible for displaying all the teams on the teams page
 class Teams extends React.Component{
 	render(){ 
+		if (localStorage.getItem('id_token')){
+			json = JSON.parse(localStorage.getItem('teams'));
+		}
 		var teams = this.props.route.data; //takes in data through the routes
+		var teams = json;
 		var link="/teams/"; //The default start of a link
 		var teamName=""; 
-		const namesList = teams.map(team =>{
+		var namesList = teams.map(team =>{
 		teamName=link+team.name; //adds the link and the current team name
 		return (	<li key={team.name} className="Teamsss"> 
 						<img src={require(team.logo)}/>
@@ -232,7 +236,7 @@ export default Teams;
 //Responsible for logging out a user
 class Logout extends React.Component{
 	render(){
-		localStorage.removeItem('id_token');
+		localStorage.clear();
 		return	<div>
 					<Links />
 					<h1>You have succesfully logged out</h1>
@@ -351,8 +355,8 @@ ReactDOM.render((
 			</Route>
 			<Route path="home" component={MasterPage} />
 			<Route path="about" component={AboutPage} />
-			<Route path="teams" component={Teams} data={AllTeams}/>
-			<Route path="teams/:name" component={TeamInformation} data={AllTeams}/>
+			<Route path="teams" component={Teams} data={json}/>
+			<Route path="teams/:name" component={TeamInformation} data={json}/>
 			<Route path="table" component={TablePage}/>
 			<Route path="logout" component={Logout} />
 		</Router>	
