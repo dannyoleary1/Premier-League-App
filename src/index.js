@@ -98,18 +98,27 @@ var LoggedIn = React.createClass({
 	},
 
 	render: function() {
+		
 		if (this.state.profile) {
-			return (	<div>
+			if(this.state.profile.nickname=="dannyoleary1"){
+				localStorage.setItem("nickname", "dannyoleary1");
+				return (<div>
+							<h2> Welcome Admin </h2>
+						</div>)
+			}
+			else return (	<div>
 							<h2>Welcome {this.state.profile.nickname}</h2>
 						</div>
 			);
-		} else {
+		} 
+		else {
 			return (	<div>
 							<div className="logout">Please logout</div>
 						</div>
 			);
 		}
 	}
+	
 });
 
 //Displays the homepage itself
@@ -357,8 +366,8 @@ ReactDOM.render((
 			</Route>
 			<Route path="home" component={MasterPage} />
 			<Route path="about" component={AboutPage} />
-			<Route path="teams" component={Teams}/>
-			<Route path="teams/:name" component={TeamInformation} data={json}/>
+			<Route path="teams" component={Teams} />
+			<Route path="teams/:name" component={TeamInformation} />
 			<Route path="table" component={TablePage}/>
 			<Route path="logout" component={Logout} />
 		</Router>	
