@@ -5,6 +5,7 @@ import ReactDom from 'react-dom';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import {lock} from 'auth0-lock';
 import AllTeams from './data.js';
+import request from 'superagent' ; 
 
 var Table = Reactable.Table,  
 Thead = Reactable.Thead,
@@ -17,6 +18,23 @@ var loopControl =0; //To stop re-rendering
 
 //The page responsible for displaying the home page
 var MasterPage = React.createClass({
+	
+	//responsible for reading in the new data set implemented from a web api
+	 componentDidMount : function() {
+       request.get('http://127.0.0.1:4000/api/teams')
+          .end(function(error, res){
+            if (res) {
+              var json = JSON.parse(res.text);
+              localStorage.clear();
+              localStorage.setItem('contacts', JSON.stringify(json)) ;
+              this.setState( {}) ; 
+            } else {
+              console.log(error );
+            }
+          }.bind(this)); 
+      },
+	  
+	  
 	componentWillMount: function() {
 		this.lock = new Auth0Lock('QdtemUG2ohlYsPEfBBYRDLBwitPHGTSl', 'dannyoleary1.eu.auth0.com');
 		this.setState({idToken: this.getIdToken()})
