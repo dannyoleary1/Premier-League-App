@@ -258,6 +258,14 @@ var Post = React.createClass({
 					<form onSubmit={this.submit} >
 						<BasicInputBox label="Name:" valChange={this.nameChange} val={this.state.name}/>
 						<BasicInputBox label="Logo:" valChange={this.logoChange} val={this.state.logo}/>
+						<BasicInputBox label="Nickname:" valChange={this.nicknameChange} val={this.state.nickname}/>
+						<BasicInputBox label="Founded:" valChange={this.foundedChange} val={this.state.founded}/>
+						<BasicInputBox label="Stadium:" valChange={this.stadiumChange} val={this.state.stadium}/>
+						<BasicInputBox label="Capacity:" valChange={this.capacityChange} val={this.state.capacity}/>
+						<BasicInputBox label="Manager:" valChange={this.managerChange} val={this.state.manager}/>
+						<BasicInputBox label="Latest News:" valChange={this.latestnewsChange} val={this.state.latestnews}/>
+						<BasicInputBox label="Stats:" valChange={this.statsChange} val={this.state.stats}/>
+						<BasicInputBox label="Description:" valChange={this.descriptionChange} val={this.state.description}/>
 					<button type="submit">Post</button>
         </form>
 					</div> )
@@ -273,7 +281,16 @@ class Get extends React.Component{
 			}).done((response) =>{
 				for(var i=0; i<response.length; i++){
 				  data.push({
-					  "NAME": response[i].name
+					  "NAME": response[i].name,
+					  "LOGO": response[i].logo,
+					  "NICKNAME": response[i].Nickname,
+					  "FOUNDED": response[i].Founded,
+					  "STADIUM": response[i].Stadium,
+					  "CAPACITY": response[i].Capacity,
+					  "MANAGER": response[i].Manager,
+					  "LATESTNEWS": response[i].latestNews,
+					  "STATS": response[i].stats,
+					  "DESCRIPTION": response[i].description
 					})
 			}
 			this.setState({data: data})
@@ -283,8 +300,16 @@ class Get extends React.Component{
 		{
 			var namesList = data.map(team =>{
 				return ( <li key={team.NAME} className="data"> 
-							<h1>Team Name: {team.NAME}</h1>
-						</li> )
+							<p>Team Name: {team.NAME} 	Logo: {team.LOGO} 	Nickname: {team.NICKNAME} 	Founded: {team.FOUNDED} 	Stadium: {team.STADIUM} 	Capacity: {team.CAPACITY} 	Manager: {team.MANAGER} 	Latest News: {team.LATESTNEWS}
+								Stats: {team.STATS} 	Description: {team.DESCRIPTION}</p> 
+							<br></br>
+							 <code> {'{'}"name": {'{'}team.NAME{'}'}, "logo": {'{'}team.LOGO{'}'}, "Nickname:" {'{'}team.NICKNAME{'}'}, "Founded": {'{'}team.FOUNDED{'}'}, 
+							 "Stadium": {'{'}team.STADIUM{'}'}, "Capacity": {'{'}team.CAPACITY{'}'}, "Manager": {'{'}team.MANAGER{'}'}, "latestNews": {'{'}team.LATESTNEWS{'}'}, "stats": {'{'}team.STATS{'}'}, 
+							 "Description": {'{'}team.DESCRIPTION{'}'}{'}'}</code>
+							 <br></br>
+							 <br></br>
+							 <br></br>
+						</li>)
 			})
 			return <div>
 				<div id="data">
