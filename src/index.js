@@ -17,6 +17,9 @@ var json=[];
 
 var loopControl =0; //To stop re-rendering
 
+var name, nickname, stadium, manager, latestnews, stats, description="";
+var founded, capacity=0;
+
 //The page responsible for displaying the home page
 var MasterPage = React.createClass({
 	
@@ -102,6 +105,12 @@ var LoggedIn = React.createClass({
 		onClick() {
 			this.setState({ showResults: true });
 		},
+		getInitialStatePost(){
+			return {post: false};
+		},
+		postClick(){
+			this.setState({post: true});
+		},
 	render: function() {		
 		
 		
@@ -114,6 +123,11 @@ var LoggedIn = React.createClass({
 							<div>
 								<input type="submit" value="Show JSON" onClick={this.onClick} />
 								{ this.state.showResults ? <Get /> : null }
+							</div>
+							<br />
+							<div>
+								<input type="submit" value="Add Entry" onClick={this.postClick} />
+								{this.state.post ? <Post /> : null}
 							</div>
 						</div> )
 			}
@@ -130,6 +144,124 @@ var LoggedIn = React.createClass({
 		}
 	}
 	
+});
+
+//This is for the submission on posts
+var BasicInputBox = React.createClass ({
+  render: function (){
+    return (
+     <div>
+       <label>{this.props.label}</label>
+       <br/>
+       <input type="text" onChange={this.props.valChange} value= {this.props.val} />
+       <br/> 
+     </div>
+    );
+  }
+ });
+ 
+var Post = React.createClass({
+	
+	getInitialState: function(){
+      return {}
+    },	  
+			    submit: function(e){
+
+				var data = {
+					name: this.state.name,
+					logo: this.state.logo,
+					Nickname: this.state.nickname,
+					Founded: this.state.founded, 
+					Stadium: this.state.stadium,
+					Capacity: this.state.capacity,
+					Manager: this.state.manager,
+					latestNews: this.state.latestNews,
+					stats: this.state.stats,
+					Description: this.state.description
+				}
+				
+			//this is just an example of how you would submit a form
+			//you would have to implement something separately on the server
+			$.ajax({
+			type: 'POST',
+			datatype: 'json',
+			url: 'http://localhost:4000/api/teams',
+			data: data
+			})
+			.done(function(data) {
+			self.clearForm()
+			})
+			.fail(function(jqXhr) {
+			console.log('failed to register');
+			});
+			},
+	
+	clearForm: function() {
+      this.setState({
+        name: "",
+        logo: "",
+        nickname: "",
+		founded: 0,
+		stadium: "",
+		capacity: 0,
+		manager: "",
+		latestNews: "",
+		stats: "",
+		description: "",
+      });
+    },
+	
+	nameChange: function(e){
+      this.setState({name: e.target.value})
+    },
+    
+    logoChange: function(e){
+     this.setState({logo: e.target.value})
+    },
+
+    nicknameChange: function(e){
+      this.setState({Nickname: e.target.value})
+    },
+	
+	foundedChange: function(e){
+		this.setState({Founded: e.target.value})
+	},
+	
+	stadiumChange: function(e){
+		this.setState({Stadium: e.target.value})
+	},
+	
+	capacityChange: function(e){
+		this.setState({Capacity: e.target.value})
+	},
+	
+	managerChange: function(e){
+		this.setState({Manager: e.target.value})
+	},
+	
+	latestnewsChange: function(e){
+		this.setState({latestNews: e.target.value})
+	},
+	
+	statsChange: function(e){
+		this.setState({stats: e.target.value})
+	},
+	
+	descriptionChange: function(e){
+		this.setState({Description: e.target.value})
+	},
+	
+	render: function(){
+
+		return (	
+					<div>
+					<form onSubmit={this.submit} >
+						<BasicInputBox label="Name:" valChange={this.nameChange} val={this.state.name}/>
+						<BasicInputBox label="Logo:" valChange={this.logoChange} val={this.state.logo}/>
+					<button type="submit">Post</button>
+        </form>
+					</div> )
+	}
 });
 
 class Get extends React.Component{
