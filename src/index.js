@@ -114,6 +114,12 @@ var LoggedIn = React.createClass({
 		putClick(){
 			this.setState({put: true});
 		},
+		getInitialStateDelete(){
+			return {delete: false};
+		},
+		deleteClick(){
+			this.setState({delete: true});
+		},
 	render: function() {		
 		
 		
@@ -137,6 +143,12 @@ var LoggedIn = React.createClass({
 								<input type="submit" value="Change entry by id" onClick={this.putClick} />
 								{this.state.put ? <Put /> : null}
 							</div>
+							<br />
+							<div>
+								<input type="submit" value="Delete by ID" onClick={this.deleteClick} />
+								{this.state.delete ? <Delete /> : null}
+							</div>
+							<br />
 						</div> )
 			}
 			else return (	<div>
@@ -396,6 +408,58 @@ clearForm: function() {
 	}
 });
 
+var Delete = React.createClass({
+	
+	getInitialState: function(){
+      return {}
+    },	  
+			    submit: function(e){
+				var data = {
+					id: this.state.id,
+				}		
+		    //you would have to implement something separately on the server
+			$.ajax({
+			type: 'DELETE',
+			url: 'http://localhost:4000/api/teams/'+this.state.id,
+			data: data
+			})
+			.done(function(data) {
+			self.clearForm()
+			})
+			.fail(function(jqXhr) {
+			console.log('failed to register');
+			});
+},
+	clearForm: function() {
+      this.setState({
+		id: 0, 
+        name: "",
+        logo: "",
+        nickname: "",
+		founded: 0,
+		stadium: "",
+		capacity: 0,
+		manager: "",
+		latestNews: "",
+		stats: "",
+		description: "",
+      });
+    },
+	
+	idChange: function(e){
+		this.setState({id: e.target.value})
+	},
+	
+	render: function(){
+		return (	
+					<div>
+					<form onSubmit={this.submit} >
+						<BasicInputBox label="Id:" valChange={this.idChange} val={this.state.id}/>
+					<button type="submit">DELETE BY ID</button>
+					</form>
+					</div> )
+	}
+})
 
 class Get extends React.Component{
 		componentDidMount() {
