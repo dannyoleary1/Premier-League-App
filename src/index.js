@@ -10,13 +10,10 @@ var Table = Reactable.Table,
 Thead = Reactable.Thead,
 Th = Reactable.Th; //used for table sorting. Will be using this rather than the default table for easy sorting and searching using reactable
 
-var bplTeams=[
-	];
-	var data=[];	
+var bplTeams=[];
 var json=[];
-
+var data=[];
 var loopControl =0; //To stop re-rendering
-
 var name, nickname, stadium, manager, latestnews, stats, description="";
 var founded, capacity=0;
 
@@ -111,6 +108,12 @@ var LoggedIn = React.createClass({
 		postClick(){
 			this.setState({post: true});
 		},
+		getInitialStatePut(){
+			return {put: false};
+		},
+		putClick(){
+			this.setState({put: true});
+		},
 	render: function() {		
 		
 		
@@ -128,6 +131,11 @@ var LoggedIn = React.createClass({
 							<div>
 								<input type="submit" value="Add Entry" onClick={this.postClick} />
 								{this.state.post ? <Post /> : null}
+							</div>
+							<br />
+							<div>
+								<input type="submit" value="Change entry by id" onClick={this.putClick} />
+								{this.state.put ? <Put /> : null}
 							</div>
 						</div> )
 			}
@@ -267,10 +275,127 @@ var Post = React.createClass({
 						<BasicInputBox label="Stats:" valChange={this.statsChange} val={this.state.stats}/>
 						<BasicInputBox label="Description:" valChange={this.descriptionChange} val={this.state.description}/>
 					<button type="submit">Post</button>
-        </form>
+					</form>
 					</div> )
 	}
 });
+
+var Put = React.createClass({
+	
+	getInitialState: function(){
+      return {}
+    },	  
+			    submit: function(e){
+				var data = {
+					id: this.state.id,
+					name: this.state.name,
+					logo: this.state.logo,
+					Nickname: this.state.nickname,
+					Founded: this.state.founded, 
+					Stadium: this.state.stadium,
+					Capacity: this.state.capacity,
+					Manager: this.state.manager,
+					latestNews: this.state.latestNews,
+					stats: this.state.stats,
+					Description: this.state.description
+				}
+			
+			
+				//you would have to implement something separately on the server
+			$.ajax({
+			type: 'PUT',
+			url: 'http://localhost:4000/api/teams/'+this.state.id,
+			data: data
+			})
+			.done(function(data) {
+			self.clearForm()
+			})
+			.fail(function(jqXhr) {
+			console.log('failed to register');
+			});
+},
+clearForm: function() {
+      this.setState({
+		id: 0, 
+        name: "",
+        logo: "",
+        nickname: "",
+		founded: 0,
+		stadium: "",
+		capacity: 0,
+		manager: "",
+		latestNews: "",
+		stats: "",
+		description: "",
+      });
+    },
+	
+	idChange: function(e){
+		this.setState({id: e.target.value})
+	},
+	
+	nameChange: function(e){
+      this.setState({name: e.target.value})
+    },
+    
+    logoChange: function(e){
+     this.setState({logo: e.target.value})
+    },
+
+    nicknameChange: function(e){
+      this.setState({Nickname: e.target.value})
+    },
+	
+	foundedChange: function(e){
+		this.setState({Founded: e.target.value})
+	},
+	
+	stadiumChange: function(e){
+		this.setState({Stadium: e.target.value})
+	},
+	
+	capacityChange: function(e){
+		this.setState({Capacity: e.target.value})
+	},
+	
+	managerChange: function(e){
+		this.setState({Manager: e.target.value})
+	},
+	
+	latestnewsChange: function(e){
+		this.setState({latestNews: e.target.value})
+	},
+	
+	statsChange: function(e){
+		this.setState({stats: e.target.value})
+	},
+	
+	descriptionChange: function(e){
+		this.setState({Description: e.target.value})
+	},
+	
+	render: function(){
+
+		return (	
+					<div>
+					<form onSubmit={this.submit} >
+						<BasicInputBox label="Id:" valChange={this.idChange} val={this.state.id}/>
+						<BasicInputBox label="Name:" valChange={this.nameChange} val={this.state.name}/>
+						<BasicInputBox label="Logo:" valChange={this.logoChange} val={this.state.logo}/>
+						<BasicInputBox label="Nickname:" valChange={this.nicknameChange} val={this.state.nickname}/>
+						<BasicInputBox label="Founded:" valChange={this.foundedChange} val={this.state.founded}/>
+						<BasicInputBox label="Stadium:" valChange={this.stadiumChange} val={this.state.stadium}/>
+						<BasicInputBox label="Capacity:" valChange={this.capacityChange} val={this.state.capacity}/>
+						<BasicInputBox label="Manager:" valChange={this.managerChange} val={this.state.manager}/>
+						<BasicInputBox label="Latest News:" valChange={this.latestnewsChange} val={this.state.latestnews}/>
+						<BasicInputBox label="Stats:" valChange={this.statsChange} val={this.state.stats}/>
+						<BasicInputBox label="Description:" valChange={this.descriptionChange} val={this.state.description}/>
+					<button type="submit">PUT</button>
+					</form>
+					</div> )
+	}
+});
+
 
 class Get extends React.Component{
 		componentDidMount() {
