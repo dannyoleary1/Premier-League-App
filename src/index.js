@@ -146,6 +146,30 @@ var LoggedIn = React.createClass({
 			this.setState({putTable: true});
 		},
 		
+		getFixture() {
+				return { getFixture: false };
+			},
+		getClickFixture() {
+			this.setState({ getFixture: true });
+		},
+		postFixture(){
+			return { postFixture: false};
+		},
+		postClickFixture(){
+			this.setState({postFixture: true});
+		},
+		deleteFixture(){
+			return { deleteFixture: false};
+		},
+		deleteClickFixture(){
+			this.setState({deleteFixture: true});
+		},
+		putFixture(){
+			return {putFixture: false};
+		},
+		putClickFixture(){
+			this.setState({putFixture: true});
+		},
 	render: function() {		
 		
 		
@@ -196,6 +220,29 @@ var LoggedIn = React.createClass({
 							<div>
 								<input type="submit" value="Delete Entry(tables)" onClick={this.deleteClickTable} />
 								{this.state.deleteTable ? <DeleteTable /> : null}
+							</div>
+							<br />
+							<br />
+							<p>Controls the fixtures page</p>
+							<br />
+							<div>
+								<input type="submit" value="Show JSON(fixtures)" onClick={this.getClickFixture} />
+								{this.state.getFixture ? <GetFixture /> : null}
+							</div>
+							<br />
+							<div>
+								<input type="submit" value="Add Entry(fixtures)" onClick={this.postClickFixture} />
+								{this.state.postFixture ? <PostFixture /> : null}
+							</div>
+							<br />
+							<div>
+								<input type="submit" value="Update Entry(fixtures)" onClick={this.putClickFixture} />
+								{this.state.putFixture ? <PutFixture /> : null}
+							</div>
+							<br />
+							<div>
+								<input type="submit" value="Delete Entry(fixtures)" onClick={this.deleteClickFixture} />
+								{this.state.deleteFixture ? <DeleteFixture /> : null}
 							</div>
 							<br />
 						</div> )
@@ -864,7 +911,257 @@ var PutTable = React.createClass({
 	}
 });
 
+var PostFixture = React.createClass({
+getInitialState: function(){
+      return {}
+    },	  
+			    submit: function(e){
 
+				var data = {
+					id: this.state.id,
+					HOMETEAM: this.state.HOMETEAM,
+					HOMEPREVRES: this.state.HOMEPREVRES,
+					AWAYTEAM: this.state.AWAYTEAM,
+					AWAYPREVRES: this.state.AWAYPREVRES,
+					DATE: this.state.DATE, 
+					TIME: this.state.TIME,				
+				}
+				
+			//this is just an example of how you would submit a form
+			//you would have to implement something separately on the server
+			$.ajax({
+			type: 'POST',
+			datatype: 'json',
+			url: 'http://localhost:3001/api/fixtures?access_token=test',
+			data: data,
+			 success: function(data) { alert(JSON.stringify(data)) },
+             error: function(data) { alert("eh") }
+			})	
+				},
+
+	
+	clearForm: function() {
+      this.setState({		
+        id: 0,
+		HOMETEAM: "",
+        HOMEPREVRES: "",
+        AWAYTEAM: "",
+		AWAYPREVRES: "",
+		DATE: "",
+		TIME: "",
+      });
+    },
+	
+	idChange: function(e){
+		this.setState({id: e.target.value})
+	},
+	
+	hometeamChange: function(e){
+      this.setState({HOMETEAM: e.target.value})
+    },
+    
+    homeprevresChange: function(e){
+     this.setState({HOMEPREVRES: e.target.value})
+    },
+
+    awayteamChange: function(e){
+      this.setState({AWAYTEAM: e.target.value})
+    },
+	
+	awayprevresChange: function(e){
+		this.setState({AWAYPREVRES: e.target.value})
+	},
+	
+	dateChange: function(e){
+		this.setState({DATE: e.target.value})
+	},
+	
+	timeChange: function(e){
+		this.setState({TIME: e.target.value})
+	},
+	
+	render: function(){
+
+		return (	
+					<div>
+					<form onSubmit={this.submit} >
+						<BasicInputBox label="Id:" valChange={this.idChange} val={this.state.id}/>
+						<BasicInputBox label="Home Team:" valChange={this.hometeamChange} val={this.state.HOMETEAM}/>
+						<BasicInputBox label="Home Prev Results(WWDLW):" valChange={this.homeprevresChange} val={this.state.HOMEPREVRES}/>
+						<BasicInputBox label="Away Team:" valChange={this.awayteamChange} val={this.state.AWAYTEAM}/>
+						<BasicInputBox label="Away Prev Results(WWDLW):" valChange={this.awayprevresChange} val={this.state.AWAYPREVRES}/>
+						<BasicInputBox label="Date:" valChange={this.dateChange} val={this.state.DATE}/>
+						<BasicInputBox label="TIME:" valChange={this.timeChange} val={this.state.TIME}/>
+					<button type="submit">Post</button>
+					</form>
+					</div> )
+	}
+});
+class GetFixture extends React.Component{
+	componentDidMount() {
+				$.ajax({ //This is jquery to make the api call to the specific url
+				url: 'http://localhost:3001/api/fixtures?access_token=test',
+				dataType: 'json',
+				type: 'GET',
+			}).done((response) =>{
+				for(var i=0; i<response.length; i++){
+				  data.push({
+					  "id": response[i].id,
+					  "HOMETEAM": response[i].HOMETEAM,
+					  "HOMEPREVRES": response[i].HOMEPREVRES,
+					  "AWAYTEAM": response[i].AWAYTEAM,
+					  "AWAYTEAMRES": response[i].AWAYTEAMRES,
+					  "DATE": response[i].DATE,
+					  "TIME": response[i].TIME
+					})
+			}
+			this.setState({data: data})
+		});
+		}
+		render() 
+		{
+			var namesList = data.map(team =>{
+				return ( <li key={team.NAME} className="data"> 
+							<p>Match No. : {team.id} 	Home Team: {team.HOMETEAM} 	Home Previous Results: {team.HOMEPREVRES} 	Away Team: {team.AWAYTEAM} 	Away Previous Team: {team.AWAYPREVRES} 	Date: {team.DATE} 	Time: {team.TIME}</p> 
+							<br></br>
+							 <code> {'{'}"id": {'{'}team.id{'}'}, "HOMETEAM": {'{'}team.HOMETEAM{'}'}, "HOMEPREVRES" {'{'}team.HOMEPREVRES{'}'}, "AWAYTEAM": {'{'}team.AWAYTEAM{'}'}, 
+							 "DATE": {'{'}team.DATE{'}'}, "TIME": {'{'}team.TIME{'}'}</code>
+							 <br></br>
+							 <br></br>
+							 <br></br>
+						</li>)
+			})
+			return <div>
+				<div id="data">
+						<ul>
+						{namesList}
+						</ul>
+					</div>	
+				</div>
+		}
+};
+var DeleteFixture = React.createClass({
+getInitialState: function(){
+      return {}
+    },	  
+			    submit: function(e){
+				var data = {
+					id: this.state.id,
+				}		
+		    //you would have to implement something separately on the server
+			$.ajax({
+			type: 'DELETE',
+			url: 'http://localhost:3001/api/fixtures/'+this.state.id+'?access_token=test',
+			data: data
+			})
+			.done(function(data) {
+			self.clearForm()
+			})
+			.fail(function(jqXhr) {
+			console.log('failed to register');
+			});
+},
+	
+	idChange: function(e){
+		this.setState({id: e.target.value})
+	},
+	
+	render: function(){
+		return (	
+					<div>
+					<form onSubmit={this.submit} >
+						<BasicInputBox label="Id:" valChange={this.idChange} val={this.state.id}/>
+					<button type="submit">DELETE BY ID</button>
+					</form>
+					</div> )
+	}
+})
+var PutFixture = React.createClass({
+	getInitialState: function(){
+      return {}
+    },	  
+			    submit: function(e){
+
+				var data = {
+					id: this.state.id,
+					HOMETEAM: this.state.HOMETEAM,
+					HOMEPREVRES: this.state.HOMEPREVRES,
+					AWAYTEAM: this.state.AWAYTEAM,
+					AWAYPREVRES: this.state.AWAYPREVRES,
+					DATE: this.state.DATE, 
+					TIME: this.state.TIME,				
+				}
+				
+			//this is just an example of how you would submit a form
+			//you would have to implement something separately on the server
+			$.ajax({
+			type: 'PUT',
+			datatype: 'json',
+			url: 'http://localhost:3001/api/fixtures/'+this.state.id+'?access_token=test',
+			data: data,
+			 success: function(data) { alert(JSON.stringify(data)) },
+             error: function(data) { alert("eh") }
+			})	
+				},
+
+	
+	clearForm: function() {
+      this.setState({		
+        id: 0,
+		HOMETEAM: "",
+        HOMEPREVRES: "",
+        AWAYTEAM: "",
+		AWAYPREVRES: "",
+		DATE: "",
+		TIME: "",
+      });
+    },
+	
+	idChange: function(e){
+		this.setState({id: e.target.value})
+	},
+	
+	hometeamChange: function(e){
+      this.setState({HOMETEAM: e.target.value})
+    },
+    
+    homeprevresChange: function(e){
+     this.setState({HOMEPREVRES: e.target.value})
+    },
+
+    awayteamChange: function(e){
+      this.setState({AWAYTEAM: e.target.value})
+    },
+	
+	awayprevresChange: function(e){
+		this.setState({AWAYPREVRES: e.target.value})
+	},
+	
+	dateChange: function(e){
+		this.setState({DATE: e.target.value})
+	},
+	
+	timeChange: function(e){
+		this.setState({TIME: e.target.value})
+	},
+	
+	render: function(){
+
+		return (	
+					<div>
+					<form onSubmit={this.submit} >
+						<BasicInputBox label="Id:" valChange={this.idChange} val={this.state.id}/>
+						<BasicInputBox label="Home Team:" valChange={this.hometeamChange} val={this.state.HOMETEAM}/>
+						<BasicInputBox label="Home Prev Results(WWDLW):" valChange={this.homeprevresChange} val={this.state.HOMEPREVRES}/>
+						<BasicInputBox label="Away Team:" valChange={this.awayteamChange} val={this.state.AWAYTEAM}/>
+						<BasicInputBox label="Away Prev Results(WWDLW):" valChange={this.awayprevresChange} val={this.state.AWAYPREVRES}/>
+						<BasicInputBox label="Date:" valChange={this.dateChange} val={this.state.DATE}/>
+						<BasicInputBox label="TIME:" valChange={this.timeChange} val={this.state.TIME}/>
+					<button type="submit">Post</button>
+					</form>
+					</div> )
+	}
+});
 //Displays the homepage itself
 var Home = React.createClass({
 	showLock: function() {
