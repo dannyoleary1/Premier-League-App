@@ -120,6 +120,32 @@ var LoggedIn = React.createClass({
 		deleteClick(){
 			this.setState({delete: true});
 		},
+		
+		getTable() {
+				return { getTable: false };
+			},
+		getClickTable() {
+			this.setState({ getTable: true });
+		},
+		postTable(){
+			return { postTable: false};
+		},
+		postClickTable(){
+			this.setState({postTable: true});
+		},
+		deleteTable(){
+			return { deleteTable: false};
+		},
+		deleteClickTable(){
+			this.setState({deleteTable: true});
+		},
+		putTable(){
+			return {putTable: false};
+		},
+		putClickTable(){
+			this.setState({putTable: true});
+		},
+		
 	render: function() {		
 		
 		
@@ -130,23 +156,46 @@ var LoggedIn = React.createClass({
 							<h2> Welcome Admin </h2>
 							<br/>
 							<div>
-								<input type="submit" value="Show JSON" onClick={this.onClick} />
+								<input type="submit" value="Show JSON(TEAMS)" onClick={this.onClick} />
 								{ this.state.showResults ? <Get /> : null }
 							</div>
 							<br />
 							<div>
-								<input type="submit" value="Add Entry" onClick={this.postClick} />
+								<input type="submit" value="Add Entry(TEAMS)" onClick={this.postClick} />
 								{this.state.post ? <Post /> : null}
 							</div>
 							<br />
 							<div>
-								<input type="submit" value="Change entry by id" onClick={this.putClick} />
+								<input type="submit" value="Change entry by id(TEAMS)" onClick={this.putClickTable} />
 								{this.state.put ? <Put /> : null}
 							</div>
 							<br />
 							<div>
-								<input type="submit" value="Delete by ID" onClick={this.deleteClick} />
+								<input type="submit" value="Delete by ID(TEAMS)" onClick={this.deleteClick} />
 								{this.state.delete ? <Delete /> : null}
+							</div>
+							<br />
+							<br />
+							<p>This next few buttons are for the table. This is a fail safe for if the sod api stops working</p>
+							<br />
+							<div>
+								<input type="submit" value="Show JSON(table)" onClick={this.getClickTable} />
+								{this.state.getTable ? <GetTable /> : null}
+							</div>
+							<br />
+							<div>
+								<input type="submit" value="Add Entry(tables)" onClick={this.postClickTable} />
+								{this.state.postTable ? <PostTable /> : null}
+							</div>
+							<br />
+							<div>
+								<input type="submit" value="Update Entry(tables)" onClick={this.putClickTable} />
+								{this.state.putTable ? <PutTable /> : null}
+							</div>
+							<br />
+							<div>
+								<input type="submit" value="Delete Entry(tables)" onClick={this.deleteClickTable} />
+								{this.state.deleteTable ? <DeleteTable /> : null}
 							</div>
 							<br />
 						</div> )
@@ -212,13 +261,7 @@ var Post = React.createClass({
              error: function(data) { alert("eh") }
 			})	
 				},
-//			.done(function(data) {
-//			self.clearForm()
-//			})
-//			.fail(function(jqXhr) {
-//			console.log('failed to register');
-//			});
-//			},
+
 	
 	clearForm: function() {
       this.setState({
@@ -301,7 +344,6 @@ var Post = React.createClass({
 					</div> )
 	}
 });
-
 var Put = React.createClass({
 	
 	getInitialState: function(){
@@ -312,21 +354,21 @@ var Put = React.createClass({
 					id: this.state.id,
 					name: this.state.name,
 					logo: this.state.logo,
-					Nickname: this.state.nickname,
-					Founded: this.state.founded, 
-					Stadium: this.state.stadium,
-					Capacity: this.state.capacity,
-					Manager: this.state.manager,
+					Nickname: this.state.Nickname,
+					Founded: this.state.Founded, 
+					Stadium: this.state.Stadium,
+					Capacity: this.state.Capacity,
+					Manager: this.state.Manager,
 					latestNews: this.state.latestNews,
 					stats: this.state.stats,
-					Description: this.state.description
+					Description: this.state.Description
 				}
 			
 			
 				//you would have to implement something separately on the server
 			$.ajax({
 			type: 'PUT',
-			url: 'http://localhost:3001/api/teams/1'+this.state.id+'?access_token=test',
+			url: 'http://localhost:3001/api/teams/'+this.state.id+'?access_token=test',
 			data: data
 			})
 			.done(function(data) {
@@ -341,14 +383,14 @@ clearForm: function() {
 		id: 0, 
         name: "",
         logo: "",
-        nickname: "",
-		founded: 0,
-		stadium: "",
-		capacity: 0,
-		manager: "",
+        Nickname: "",
+		Founded: 0,
+		Stadium: "",
+		Capacity: 0,
+		Manager: "",
 		latestNews: "",
 		stats: "",
-		description: "",
+		Description: "",
       });
     },
 	
@@ -404,20 +446,19 @@ clearForm: function() {
 						<BasicInputBox label="Id:" valChange={this.idChange} val={this.state.id}/>
 						<BasicInputBox label="Name:" valChange={this.nameChange} val={this.state.name}/>
 						<BasicInputBox label="Logo:" valChange={this.logoChange} val={this.state.logo}/>
-						<BasicInputBox label="Nickname:" valChange={this.nicknameChange} val={this.state.nickname}/>
-						<BasicInputBox label="Founded:" valChange={this.foundedChange} val={this.state.founded}/>
-						<BasicInputBox label="Stadium:" valChange={this.stadiumChange} val={this.state.stadium}/>
-						<BasicInputBox label="Capacity:" valChange={this.capacityChange} val={this.state.capacity}/>
-						<BasicInputBox label="Manager:" valChange={this.managerChange} val={this.state.manager}/>
+						<BasicInputBox label="Nickname:" valChange={this.nicknameChange} val={this.state.Nickname}/>
+						<BasicInputBox label="Founded:" valChange={this.foundedChange} val={this.state.Founded}/>
+						<BasicInputBox label="Stadium:" valChange={this.stadiumChange} val={this.state.Stadium}/>
+						<BasicInputBox label="Capacity:" valChange={this.capacityChange} val={this.state.Capacity}/>
+						<BasicInputBox label="Manager:" valChange={this.managerChange} val={this.state.Manager}/>
 						<BasicInputBox label="Latest News:" valChange={this.latestnewsChange} val={this.state.latestnews}/>
 						<BasicInputBox label="Stats:" valChange={this.statsChange} val={this.state.stats}/>
-						<BasicInputBox label="Description:" valChange={this.descriptionChange} val={this.state.description}/>
+						<BasicInputBox label="Description:" valChange={this.descriptionChange} val={this.state.Description}/>
 					<button type="submit">PUT</button>
 					</form>
 					</div> )
 	}
 });
-
 var Delete = React.createClass({
 	
 	getInitialState: function(){
@@ -445,14 +486,14 @@ var Delete = React.createClass({
 		id: 0, 
         name: "",
         logo: "",
-        nickname: "",
-		founded: 0,
-		stadium: "",
-		capacity: 0,
-		manager: "",
+        Nickname: "",
+		Founded: 0,
+		Stadium: "",
+		Capacity: 0,
+		Manager: "",
 		latestNews: "",
 		stats: "",
-		description: "",
+		Description: "",
       });
     },
 	
@@ -470,7 +511,6 @@ var Delete = React.createClass({
 					</div> )
 	}
 })
-
 class Get extends React.Component{
 		componentDidMount() {
 				$.ajax({ //This is jquery to make the api call to the specific url
@@ -520,7 +560,310 @@ class Get extends React.Component{
 		}
 };
 
-export default Get;
+var PostTable = React.createClass({
+	
+	getInitialState: function(){
+      return {}
+    },	  
+			    submit: function(e){
+
+				var data = {
+					TEAM: this.state.TEAM,
+					GP: this.state.GP,
+					W: this.state.W,
+					D: this.state.D,
+					L: this.state.L, 
+					GF: this.state.GF,
+					GA: this.state.GA,
+					GD: this.state.GD,
+					PTS: this.state.PTS,
+					id: this.state.id,
+				}
+				
+			//this is just an example of how you would submit a form
+			//you would have to implement something separately on the server
+			$.ajax({
+			type: 'POST',
+			datatype: 'json',
+			url: 'http://localhost:3001/api/tables?access_token=test',
+			data: data,
+			 success: function(data) { alert(JSON.stringify(data)) },
+             error: function(data) { alert("eh") }
+			})	
+				},
+
+	
+	clearForm: function() {
+      this.setState({		
+        TEAM: "",
+        GP: 0,
+        W: 0,
+		D: 0,
+		L: 0,
+		GF: 0,
+		GA: 0,
+		GD: 0,
+		PTS: 0,
+		id: 0,
+      });
+    },
+	
+	idChange: function(e){
+		this.setState({id: e.target.value})
+	},
+	
+	teamChange: function(e){
+      this.setState({TEAM: e.target.value})
+    },
+    
+    gpChange: function(e){
+     this.setState({GP: e.target.value})
+    },
+
+    wChange: function(e){
+      this.setState({W: e.target.value})
+    },
+	
+	dChange: function(e){
+		this.setState({D: e.target.value})
+	},
+	
+	lChange: function(e){
+		this.setState({L: e.target.value})
+	},
+	
+	gfChange: function(e){
+		this.setState({GF: e.target.value})
+	},
+	
+	gaChange: function(e){
+		this.setState({GA: e.target.value})
+	},
+	
+	gdChange: function(e){
+		this.setState({GD: e.target.value})
+	},
+	
+	ptsChange: function(e){
+		this.setState({PTS: e.target.value})
+	},
+
+	
+	render: function(){
+
+		return (	
+					<div>
+					<form onSubmit={this.submit} >
+						<BasicInputBox label="TEAM:" valChange={this.teamChange} val={this.state.TEAM}/>
+						<BasicInputBox label="GP:" valChange={this.gpChange} val={this.state.GP}/>
+						<BasicInputBox label="W:" valChange={this.wChange} val={this.state.W}/>
+						<BasicInputBox label="D:" valChange={this.dChange} val={this.state.D}/>
+						<BasicInputBox label="L:" valChange={this.lChange} val={this.state.L}/>
+						<BasicInputBox label="GF:" valChange={this.gfChange} val={this.state.GF}/>
+						<BasicInputBox label="GA:" valChange={this.gaChange} val={this.state.GA}/>
+						<BasicInputBox label="GD:" valChange={this.gdChange} val={this.state.GD}/>
+						<BasicInputBox label="PTS:" valChange={this.ptsChange} val={this.state.PTS}/>
+						<BasicInputBox label="ID:" valChange={this.idChange} val={this.state.id}/>
+					<button type="submit">Post</button>
+					</form>
+					</div> )
+	}
+});
+class GetTable extends React.Component{
+		componentDidMount() {
+				$.ajax({ //This is jquery to make the api call to the specific url
+				url: 'http://localhost:3001/api/tables?access_token=test',
+				dataType: 'json',
+				type: 'GET',
+			}).done((response) =>{
+				for(var i=0; i<response.length; i++){
+				  data.push({
+					  "TEAM": response[i].TEAM,
+					  "GP": response[i].GP,
+					  "W": response[i].W,
+					  "D": response[i].D,
+					  "L": response[i].L,
+					  "GF": response[i].GF,
+					  "GA": response[i].GA,
+					  "GD": response[i].GD,
+					  "PTS": response[i].PTS,
+					  "ID": response[i].id
+					})
+			}
+			this.setState({data: data})
+		});
+		}
+		render() 
+		{
+			var namesList = data.map(team =>{
+				return ( <li key={team.NAME} className="data"> 
+							<p>Team Name: {team.TEAM} 	GP: {team.GP} 	W: {team.W} 	D: {team.D} 	L: {team.L} 	GF: {team.GF} 	GA: {team.GA} 	GD: {team.GD}
+								PTS: {team.PTS} 	Id: {team.id}</p> 
+							<br></br>
+							 <code> {'{'}"TEAM": {'{'}team.TEAM{'}'}, "GP": {'{'}team.GP{'}'}, "W" {'{'}team.W{'}'}, "D": {'{'}team.D{'}'}, 
+							 "L": {'{'}team.L{'}'}, "GF": {'{'}team.GF{'}'}, "GA": {'{'}team.GA{'}'}, "GD": {'{'}team.GD{'}'}, "PTS": {'{'}team.PTS{'}'}, 
+							 "id": {'{'}team.ID{'}'}{'}'}</code>
+							 <br></br>
+							 <br></br>
+							 <br></br>
+						</li>)
+			})
+			return <div>
+				<div id="data">
+						<ul>
+						{namesList}
+						</ul>
+					</div>	
+				</div>
+		}
+};
+var DeleteTable = React.createClass({
+	
+	getInitialState: function(){
+      return {}
+    },	  
+			    submit: function(e){
+				var data = {
+					id: this.state.id,
+				}		
+		    //you would have to implement something separately on the server
+			$.ajax({
+			type: 'DELETE',
+			url: 'http://localhost:3001/api/tables/'+this.state.id+'?access_token=test',
+			data: data
+			})
+			.done(function(data) {
+			self.clearForm()
+			})
+			.fail(function(jqXhr) {
+			console.log('failed to register');
+			});
+},
+	
+	idChange: function(e){
+		this.setState({id: e.target.value})
+	},
+	
+	render: function(){
+		return (	
+					<div>
+					<form onSubmit={this.submit} >
+						<BasicInputBox label="Id:" valChange={this.idChange} val={this.state.id}/>
+					<button type="submit">DELETE BY ID</button>
+					</form>
+					</div> )
+	}
+})
+var PutTable = React.createClass({
+	
+	getInitialState: function(){
+      return {}
+    },	  
+			    submit: function(e){
+
+				var data = {
+					TEAM: this.state.TEAM,
+					GP: this.state.GP,
+					W: this.state.W,
+					D: this.state.D,
+					L: this.state.L, 
+					GF: this.state.GF,
+					GA: this.state.GA,
+					GD: this.state.GD,
+					PTS: this.state.PTS,
+					id: this.state.id,
+				}
+				
+			//this is just an example of how you would submit a form
+			//you would have to implement something separately on the server
+			$.ajax({
+			type: 'PUT',
+			datatype: 'json',
+			url: 'http://localhost:3001/api/tables/'+this.state.id+'?access_token=test',
+			data: data,
+			 success: function(data) { alert(JSON.stringify(data)) },
+             error: function(data) { alert("eh") }
+			})	
+				},
+
+	
+	clearForm: function() {
+      this.setState({		
+        TEAM: "",
+        GP: 0,
+        W: 0,
+		D: 0,
+		L: 0,
+		GF: 0,
+		GA: 0,
+		GD: 0,
+		PTS: 0,
+		id: 0,
+      });
+    },
+	
+	idChange: function(e){
+		this.setState({id: e.target.value})
+	},
+	
+	teamChange: function(e){
+      this.setState({TEAM: e.target.value})
+    },
+    
+    gpChange: function(e){
+     this.setState({GP: e.target.value})
+    },
+
+    wChange: function(e){
+      this.setState({W: e.target.value})
+    },
+	
+	dChange: function(e){
+		this.setState({D: e.target.value})
+	},
+	
+	lChange: function(e){
+		this.setState({L: e.target.value})
+	},
+	
+	gfChange: function(e){
+		this.setState({GF: e.target.value})
+	},
+	
+	gaChange: function(e){
+		this.setState({GA: e.target.value})
+	},
+	
+	gdChange: function(e){
+		this.setState({GD: e.target.value})
+	},
+	
+	ptsChange: function(e){
+		this.setState({PTS: e.target.value})
+	},
+
+	
+	render: function(){
+
+		return (	
+					<div>
+					<form onSubmit={this.submit} >
+						<BasicInputBox label="TEAM:" valChange={this.teamChange} val={this.state.TEAM}/>
+						<BasicInputBox label="GP:" valChange={this.gpChange} val={this.state.GP}/>
+						<BasicInputBox label="W:" valChange={this.wChange} val={this.state.W}/>
+						<BasicInputBox label="D:" valChange={this.dChange} val={this.state.D}/>
+						<BasicInputBox label="L:" valChange={this.lChange} val={this.state.L}/>
+						<BasicInputBox label="GF:" valChange={this.gfChange} val={this.state.GF}/>
+						<BasicInputBox label="GA:" valChange={this.gaChange} val={this.state.GA}/>
+						<BasicInputBox label="GD:" valChange={this.gdChange} val={this.state.GD}/>
+						<BasicInputBox label="PTS:" valChange={this.ptsChange} val={this.state.PTS}/>
+						<BasicInputBox label="ID:" valChange={this.idChange} val={this.state.id}/>
+					<button type="submit">Post</button>
+					</form>
+					</div> )
+	}
+});
+
 
 //Displays the homepage itself
 var Home = React.createClass({
