@@ -22,7 +22,7 @@ var MasterPage = React.createClass({
 	
 	//responsible for reading in the new data set implemented from a web api
 	 componentDidMount : function() {
-       request.get('http://127.0.0.1:4000/api/teams')
+       request.get('http://127.0.0.1:3001/api/teams?access_token=test')
           .end(function(error, res){
             if (res) {
               json = JSON.parse(res.text);
@@ -188,16 +188,17 @@ var Post = React.createClass({
 			    submit: function(e){
 
 				var data = {
+					id: this.state.id,
 					name: this.state.name,
 					logo: this.state.logo,
-					Nickname: this.state.nickname,
-					Founded: this.state.founded, 
-					Stadium: this.state.stadium,
-					Capacity: this.state.capacity,
-					Manager: this.state.manager,
+					Nickname: this.state.Nickname,
+					Founded: this.state.Founded, 
+					Stadium: this.state.Stadium,
+					Capacity: this.state.Capacity,
+					Manager: this.state.Manager,
 					latestNews: this.state.latestNews,
 					stats: this.state.stats,
-					Description: this.state.description
+					Description: this.state.Description
 				}
 				
 			//this is just an example of how you would submit a form
@@ -205,31 +206,39 @@ var Post = React.createClass({
 			$.ajax({
 			type: 'POST',
 			datatype: 'json',
-			url: 'http://localhost:4000/api/teams',
-			data: data
-			})
-			.done(function(data) {
-			self.clearForm()
-			})
-			.fail(function(jqXhr) {
-			console.log('failed to register');
-			});
-			},
+			url: 'http://localhost:3001/api/teams?access_token=test',
+			data: data,
+			 success: function(data) { alert(JSON.stringify(data)) },
+             error: function(data) { alert("eh") }
+			})	
+				},
+//			.done(function(data) {
+//			self.clearForm()
+//			})
+//			.fail(function(jqXhr) {
+//			console.log('failed to register');
+//			});
+//			},
 	
 	clearForm: function() {
       this.setState({
+		id: 0,
         name: "",
         logo: "",
-        nickname: "",
-		founded: 0,
-		stadium: "",
-		capacity: 0,
-		manager: "",
+        Nickname: "",
+		Founded: 0,
+		Stadium: "",
+		Capacity: 0,
+		Manager: "",
 		latestNews: "",
 		stats: "",
-		description: "",
+		Description: "",
       });
     },
+	
+	idChange: function(e){
+		this.setState({id: e.target.value})
+	},
 	
 	nameChange: function(e){
       this.setState({name: e.target.value})
@@ -276,16 +285,17 @@ var Post = React.createClass({
 		return (	
 					<div>
 					<form onSubmit={this.submit} >
+						<BasicInputBox label="ID:" valChange={this.idChange} val={this.state.id}/>
 						<BasicInputBox label="Name:" valChange={this.nameChange} val={this.state.name}/>
 						<BasicInputBox label="Logo:" valChange={this.logoChange} val={this.state.logo}/>
-						<BasicInputBox label="Nickname:" valChange={this.nicknameChange} val={this.state.nickname}/>
-						<BasicInputBox label="Founded:" valChange={this.foundedChange} val={this.state.founded}/>
-						<BasicInputBox label="Stadium:" valChange={this.stadiumChange} val={this.state.stadium}/>
-						<BasicInputBox label="Capacity:" valChange={this.capacityChange} val={this.state.capacity}/>
-						<BasicInputBox label="Manager:" valChange={this.managerChange} val={this.state.manager}/>
+						<BasicInputBox label="Nickname:" valChange={this.nicknameChange} val={this.state.Nickname}/>
+						<BasicInputBox label="Founded:" valChange={this.foundedChange} val={this.state.Founded}/>
+						<BasicInputBox label="Stadium:" valChange={this.stadiumChange} val={this.state.Stadium}/>
+						<BasicInputBox label="Capacity:" valChange={this.capacityChange} val={this.state.Capacity}/>
+						<BasicInputBox label="Manager:" valChange={this.managerChange} val={this.state.Manager}/>
 						<BasicInputBox label="Latest News:" valChange={this.latestnewsChange} val={this.state.latestnews}/>
 						<BasicInputBox label="Stats:" valChange={this.statsChange} val={this.state.stats}/>
-						<BasicInputBox label="Description:" valChange={this.descriptionChange} val={this.state.description}/>
+						<BasicInputBox label="Description:" valChange={this.descriptionChange} val={this.state.Description}/>
 					<button type="submit">Post</button>
 					</form>
 					</div> )
@@ -316,7 +326,7 @@ var Put = React.createClass({
 				//you would have to implement something separately on the server
 			$.ajax({
 			type: 'PUT',
-			url: 'http://localhost:4000/api/teams/'+this.state.id,
+			url: 'http://localhost:3001/api/teams/1'+this.state.id+'?access_token=test',
 			data: data
 			})
 			.done(function(data) {
@@ -420,7 +430,7 @@ var Delete = React.createClass({
 		    //you would have to implement something separately on the server
 			$.ajax({
 			type: 'DELETE',
-			url: 'http://localhost:4000/api/teams/'+this.state.id,
+			url: 'http://localhost:3001/api/teams/'+this.state.id+'?access_token=test',
 			data: data
 			})
 			.done(function(data) {
@@ -464,7 +474,7 @@ var Delete = React.createClass({
 class Get extends React.Component{
 		componentDidMount() {
 				$.ajax({ //This is jquery to make the api call to the specific url
-				url: 'http://localhost:4000/api/teams',
+				url: 'http://localhost:3001/api/teams?access_token=test',
 				dataType: 'json',
 				type: 'GET',
 			}).done((response) =>{
