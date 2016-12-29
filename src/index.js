@@ -12,6 +12,7 @@ Th = Reactable.Th; //used for table sorting. Will be using this rather than the 
 
 var bplTeams=[];
 var json=[];
+var fixtures=[];
 var data=[];
 var loopControl =0; //To stop re-rendering
 var name, nickname, stadium, manager, latestnews, stats, description="";
@@ -27,6 +28,16 @@ var MasterPage = React.createClass({
             if (res) {
               json = JSON.parse(res.text);
               localStorage.setItem('teams', JSON.stringify(json)) ;
+              this.setState( {}) ; 
+            } else {
+              console.log(error );
+            }
+          }.bind(this)); 
+		request.get('http://127.0.0.1:3001/api/fixtures?access_token=test')
+          .end(function(error, res){
+            if (res) {
+              fixtures = JSON.parse(res.text);
+              localStorage.setItem('fixtures', JSON.stringify(fixtures)) ;
               this.setState( {}) ; 
             } else {
               console.log(error );
@@ -1282,6 +1293,41 @@ class Teams extends React.Component{
 
 export default Teams;
 
+//Responsible for displaying the fixtures page
+class Fixtures extends React.Component{
+	render(){ 
+		if (localStorage.getItem('id_token')){
+			fixtures = JSON.parse(localStorage.getItem('fixtures'));
+		}
+		var fixtures = fixtures;
+		var namesList = fixtures.map(fixture =>{
+		return (	<li key={fixture.id} className="Fixtures"> 
+						<h1>Fixture: {fixture.id}</h1>
+						<p>{fixture.HOMETEAM} ({fixture.HOMEPREVRES}) -  {fixture.AWAYTEAM} ({fixture.AWAYPREVRES})		{fixture.DATE} - {fixture.TIME}</p>
+					</li>)
+
+		})
+		if (localStorage.getItem('id_token')){
+		return	<div>
+					<Links />		
+					<div id="Teams">	
+						<ul>
+							{namesList}					
+						</ul>
+					</div>
+				</div>
+		}
+		else{
+			return	<div>
+						<Links />
+						<h1> Log in to see the teams </h1>
+					</div>
+		}
+	}
+}
+
+export default Fixtures;
+
 //Responsible for logging out a user
 class Logout extends React.Component{
 	render(){
@@ -1303,6 +1349,7 @@ class Links extends React.Component{
 						<li><Link to="/about" activeClassName="active">About</Link></li>
 						<li><Link to="/teams" activeClassName="active">Teams</Link></li>
 						<li><Link to="/table" activeClassName="active">Table</Link></li>
+						<li><Link to="/fixtures" activeClassName="active">Fixtures</Link></li>
 						<li><Link to="/logout" activeClassName="active">Logout</Link></li>
 					</ul>
 				</div>
@@ -1410,6 +1457,7 @@ ReactDOM.render((
 			<Route path="teams" component={Teams} />
 			<Route path="teams/:name" component={TeamInformation} />
 			<Route path="table" component={TablePage}/>
+			<Route path="fixtures" component={Fixtures} />
 			<Route path="logout" component={Logout} />
 		</Router>	
 ), document.getElementById('root'))
