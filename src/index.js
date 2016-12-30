@@ -201,7 +201,7 @@ var LoggedIn = React.createClass({
 							</div>
 							<br />
 							<div>
-								<input type="submit" value="Change entry by id(TEAMS)" onClick={this.putClickTable} />
+								<input type="submit" value="Change entry by id(TEAMS)" onClick={this.putClick} />
 								{this.state.put ? <Put /> : null}
 							</div>
 							<br />
